@@ -1,43 +1,41 @@
-#Parent class: BankAccount
-class BankAccount:
-    def __init__(self, owner, balance):
-        self.owner = owner
-        self.balance = balance
+#Real-world scenario: Vehicle rental system
+# Parent class: Vehicle
+class Vehicle:
+    def __init__(self, vehicle_type, base_rate):
+        self.vehicle_type = vehicle_type
+        self.base_rate = base_rate
 
-    def withdraw(self, amount):
-        if amount <= self.balance:
-            self.balance -= amount
-            print(f"{amount} withdrawn. New balance: {self.balance}")
-        else:
-            print("Insufficient funds.")
+    def rent(self, days):
+        cost = self.base_rate * days
+        print(f"Renting {self.vehicle_type} for {days} days. Total cost: ${cost}")
 
-#Child class: SavingsAccount
-class SavingsAccount(BankAccount):
-    def withdraw(self, amount):
-        if amount > 50000:
-            print("Withdrawal limit exceeded for savings account (max 50000).")
-        elif amount <= self.balance:
-            self.balance -= amount
-            print(f"{amount} withdrawn from savings. New balance: {self.balance}")
-        else:
-            print("Insufficient funds in savings account.")
+# Child class: Car
+class Car(Vehicle):
+    def rent(self, days):
+        insurance_fee = 50
+        cost = (self.base_rate * days) + insurance_fee
+        print(f"Renting Car for {days} days with insurance. Total cost: ${cost}")
 
-#Child class: BusinessAccount
-class BusinessAccount(BankAccount):
-    def withdraw(self, amount):
-        fee = 100  
-        total = amount + fee
-        if total <= self.balance:
-            self.balance -= total
-            print(f"{amount} withdrawn from business account with a fee of {fee}. New balance: {self.balance}")
-        else:
-            print("Insufficient funds in business account.")
+# Child class: Bike
+class Bike(Vehicle):
+    def rent(self, days):
+        helmet_fee = 10
+        cost = (self.base_rate * days) + helmet_fee
+        print(f"Renting Bike for {days} days with helmet. Total cost: ${cost}")
 
-# Sample accounts
-savings = SavingsAccount("Alice", 100000)
-business = BusinessAccount("Bob", 200000)
+# Child class: Truck
+class Truck(Vehicle):
+    def rent(self, days):
+        maintenance_fee = 150
+        cost = (self.base_rate * days) + maintenance_fee
+        print(f"Renting Truck for {days} days with maintenance fee. Total cost: ${cost}")
 
-# Test withdrawals
-savings.withdraw(60000)     # Exceeds savings limit
-savings.withdraw(40000)     # Valid
-business.withdraw(50000)    # Includes fee
+# Sample rental vehicles
+car = Car("Car", 100)
+bike = Bike("Bike", 40)
+truck = Truck("Truck", 200)
+
+# Test rentals
+car.rent(3)     # Car rental
+bike.rent(2)    # Bike rental
+truck.rent(1)   # Truck rental
